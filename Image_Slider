@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .slider-container {
+            width: 60%;
+            margin: 50px auto;
+            position: relative;
+        }
+        .slider-image {
+            width: 100%;       /* Set the width of the image */
+            height: 500px;     /* Set the height of the image */
+            object-fit: cover; /* Ensures the image covers the set dimensions, maintaining aspect ratio */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .prev, .next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 20px;
+            border-radius: 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Slider</h1>
+
+    <!-- Image Slider Container -->
+    <div class="slider-container">
+        <img id="sliderImage" class="slider-image" src="" alt="Image Slider">
+
+        <!-- Previous and Next Buttons -->
+        <div class="buttons">
+            <button class="prev" onclick="prevImage()">&#10094; Previous</button>
+            <button class="next" onclick="nextImage()">Next &#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            'https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM',
+            'https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s',
+            'https://picsum.photos/id/20/367/267',
+            'https://fastly.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4'
+        ];
+
+        let currentIndex = 0;
+
+        // Function to display the current image
+        function displayImage() {
+            const sliderImage = document.getElementById('sliderImage');
+            sliderImage.src = imageUrls[currentIndex];
+        }
+
+        // Function to show the next image
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % imageUrls.length; // Loop back to the first image
+            displayImage();
+        }
+
+        // Function to show the previous image
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length; // Loop to last image
+            displayImage();
+        }
+
+        // Initially display the first image
+        displayImage();
+    </script>
+
+</body>
+</html>
