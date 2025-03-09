@@ -1,0 +1,53 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class AnagramChecker {
+
+    public static boolean areAnagrams(String str1, String str2) {
+        
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+        
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < str1.length(); i++) {
+            char ch = str1.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        for (int i = 0; i < str2.length(); i++) {
+            char ch = str2.charAt(i);
+            if (!map.containsKey(ch)) {
+                return false;  // If the character is not found, they can't be anagrams
+            }
+            map.put(ch, map.get(ch) - 1);
+        }
+
+        for (int count : map.values()) {
+            if (count != 0) {
+                return false;  // If any count is not zero, they're not anagrams
+            }
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the first string: ");
+        String str1 = scanner.nextLine();
+        System.out.print("Enter the second string: ");
+        String str2 = scanner.nextLine();
+
+        if (areAnagrams(str1, str2)) {
+            System.out.println("The strings are anagrams.");
+        } else {
+            System.out.println("The strings are not anagrams.");
+        }
+
+        scanner.close();
+    }
+}
