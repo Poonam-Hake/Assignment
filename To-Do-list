@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+        }
+        #taskList {
+            margin-top: 20px;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>To-Do List</h1>
+
+    <!-- Input field to add new tasks -->
+    <input type="text" id="taskInput" placeholder="Enter new task" />
+    <button id="addTaskBtn">Add Task</button>
+
+    <!-- Task List -->
+    <div id="taskList"></div>
+
+    <script>
+        // Function to add a new task
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+
+            // Only add the task if the input is not empty
+            if (taskText !== '') {
+                const taskList = document.getElementById('taskList');
+
+                // Create a new task div
+                const taskDiv = document.createElement('div');
+                taskDiv.classList.add('task');
+
+                // Create task text node
+                const taskTextNode = document.createElement('span');
+                taskTextNode.textContent = taskText;
+                
+                // Create the remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.onclick = function () {
+                    taskDiv.remove();
+                };
+
+                // Append task text and remove button to the task div
+                taskDiv.appendChild(taskTextNode);
+                taskDiv.appendChild(removeBtn);
+
+                // Append the new task div to the task list
+                taskList.appendChild(taskDiv);
+
+                // Clear the input field
+                taskInput.value = '';
+            } else {
+                alert("Please enter a task.");
+            }
+        }
+
+        // Event listener for the "Add Task" button
+        document.getElementById('addTaskBtn').addEventListener('click', addTask);
+
+        // Allow the user to press "Enter" to add a task
+        document.getElementById('taskInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+
+</body>
+</html>
